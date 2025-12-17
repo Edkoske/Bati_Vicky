@@ -217,14 +217,46 @@
        <div class="success-message" id="contactSuccessMessage">
         Thank you for your message! We will respond to you shortly.
        </div>
-       <form id="contactForm">
-        <div class="form-group"><label for="contactName">Your Name *</label> <input type="text" id="contactName" name="contactName" required> <span class="error-message" id="contactNameError">Please enter your name</span>
-        </div>
-        <div class="form-group"><label for="contactEmail">Your Email *</label> <input type="email" id="contactEmail" name="contactEmail" required> <span class="error-message" id="contactEmailError">Please enter a valid email address</span>
-        </div>
-        <div class="form-group"><label for="contactMessage">Your Message *</label> <textarea id="contactMessage" name="contactMessage" required></textarea> <span class="error-message" id="contactMessageError">Please enter your message</span>
-        </div><button type="submit" class="submit-button">Send Message</button>
-       </form>
+       <form id="contactForm"
+  action="https://formspree.io/f/mjknnknd"
+  method="POST"
+>
+  <div class="form-group">
+    <label for="contactName">Your Name *</label>
+    <input type="text" id="contactName" name="name" required>
+    <span class="error-message" id="contactNameError">
+      Please enter your name
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="contactEmail">Your Email *</label>
+    <input type="email" id="contactEmail" name="email" required>
+    <span class="error-message" id="contactEmailError">
+      Please enter a valid email address
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="contactMessage">Your Message *</label>
+    <textarea id="contactMessage" name="message" required></textarea>
+    <span class="error-message" id="contactMessageError">
+      Please enter your message
+    </span>
+  </div>
+
+  <!-- Allow reply directly to sender -->
+  <input type="hidden" name="_replyto" value="%email%">
+
+  <!-- Spam protection -->
+  <input type="text" name="_gotcha" style="display:none">
+
+  <button type="submit" class="submit-button">
+    Send Message
+  </button>
+</form>
+
+
       </div>
      </div>
     </div>
