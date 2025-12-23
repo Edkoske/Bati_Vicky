@@ -82,7 +82,7 @@
         const supportForm = document.getElementById('supportForm');
         const supportSuccessMessage = document.getElementById('supportSuccessMessage');
 
-        supportForm.addEventListener('submit', (e) => {
+        supportForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             let isValid = true;
@@ -129,9 +129,28 @@
                 areaError.style.display = 'none';
             }
             
-            if (isValid) {
+            if (!isValid) return;
+
+            const formData = new FormData(supportForm);
+            try {
+                const response = await fetch(supportForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    supportSuccessMessage.style.display = 'block';
+                    supportSuccessMessage.textContent = 'Thank you for joining our movement! We will keep you updated on campaign activities.';
+                    supportForm.reset();
+                } else {
+                    supportSuccessMessage.style.display = 'block';
+                    supportSuccessMessage.textContent = 'Something went wrong. Please try again in a moment.';
+                }
+            } catch (err) {
                 supportSuccessMessage.style.display = 'block';
-                supportForm.reset();
+                supportSuccessMessage.textContent = 'Network error. Please try again when you are online.';
+            } finally {
                 setTimeout(() => {
                     supportSuccessMessage.style.display = 'none';
                 }, 5000);
@@ -142,7 +161,7 @@
         const contactForm = document.getElementById('contactForm');
         const contactSuccessMessage = document.getElementById('contactSuccessMessage');
 
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             let isValid = true;
@@ -178,9 +197,28 @@
                 messageError.style.display = 'none';
             }
             
-            if (isValid) {
+            if (!isValid) return;
+
+            const formData = new FormData(contactForm);
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    contactSuccessMessage.style.display = 'block';
+                    contactSuccessMessage.textContent = 'Thank you for your message! We will respond to you shortly.';
+                    contactForm.reset();
+                } else {
+                    contactSuccessMessage.style.display = 'block';
+                    contactSuccessMessage.textContent = 'Something went wrong. Please try again in a moment.';
+                }
+            } catch (err) {
                 contactSuccessMessage.style.display = 'block';
-                contactForm.reset();
+                contactSuccessMessage.textContent = 'Network error. Please try again when you are online.';
+            } finally {
                 setTimeout(() => {
                     contactSuccessMessage.style.display = 'none';
                 }, 5000);
