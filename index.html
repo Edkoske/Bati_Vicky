@@ -219,44 +219,54 @@ Building a society where persons with disabilities, elderly citizens, vulnerable
        <div class="success-message" id="contactSuccessMessage">
         Thank you for your message! We will respond to you shortly.
        </div>
-       <form id="contactForm"
+       <form
+  id="contactForm"
   action="https://formspree.io/f/mjknnknd"
   method="POST"
 >
   <div class="form-group">
     <label for="contactName">Your Name *</label>
-    <input type="text" id="contactName" name="name" required>
-    <span class="error-message" id="contactNameError">
-      Please enter your name
-    </span>
+    <input
+      type="text"
+      id="contactName"
+      name="name"
+      required
+    >
   </div>
 
   <div class="form-group">
     <label for="contactEmail">Your Email *</label>
-    <input type="email" id="contactEmail" name="email" required>
-    <span class="error-message" id="contactEmailError">
-      Please enter a valid email address
-    </span>
+    <input
+      type="email"
+      id="contactEmail"
+      name="email"
+      required
+    >
   </div>
 
   <div class="form-group">
     <label for="contactMessage">Your Message *</label>
-    <textarea id="contactMessage" name="message" required></textarea>
-    <span class="error-message" id="contactMessageError">
-      Please enter your message
-    </span>
+    <textarea
+      id="contactMessage"
+      name="message"
+      required
+    ></textarea>
   </div>
 
-  <!-- Allow reply directly to sender -->
+  <!-- Required by Formspree for replies -->
   <input type="hidden" name="_replyto" value="%email%">
+
+  <!-- Optional: email subject -->
+  <input type="hidden" name="_subject" value="New Contact Form Message">
 
   <!-- Spam protection -->
   <input type="text" name="_gotcha" style="display:none">
 
-  <button type="submit" class="submit-button">
+  <button type="submit">
     Send Message
   </button>
 </form>
+
 
 
       </div>
@@ -276,7 +286,10 @@ Building a society where persons with disabilities, elderly citizens, vulnerable
      <div class="copyright">
       <p>© <span id="copyrightYear"></span> Bati Vicky Chepkorir Campaign. All Rights Reserved.</p>
       <p style="margin-top: 0.5rem; font-size: 0.85rem;">Built with integrity • Powered by community support</p>
-     </div>
+      <p style="margin-top: 0.5rem; font-size: 0.85rem;">Designed By • Edison Hart</p>
+     
+      </div>
+     
     </div>
    </footer>
   </div><!-- End Main Content -->
