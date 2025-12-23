@@ -175,26 +175,71 @@ Building a society where persons with disabilities, elderly citizens, vulnerable
     </div>
    </section><!-- Get Involved -->
    <section id="get-involved" class="fade-in" style="background: var(--light-gray);">
-    <div class="container">
-     <h2 class="section-title">Get Involved</h2>
-     <p class="section-subtitle">Join our movement and be part of the change Kericho County needs. Register your support today.</p>
-     <div class="form-container">
+  <div class="container">
+    <h2 class="section-title">Get Involved</h2>
+    <p class="section-subtitle">
+      Join our movement and be part of the change Kericho County needs.
+      Register your support today.
+    </p>
+
+    <div class="form-container">
       <div class="success-message" id="supportSuccessMessage">
-       Thank you for joining our movement! We will keep you updated on campaign activities.
+        Thank you for joining our movement! We will keep you updated on campaign activities.
       </div>
-      <form id="supportForm">
-       <div class="form-group"><label for="supportName">Full Name *</label> <input type="text" id="supportName" name="supportName" required> <span class="error-message" id="supportNameError">Please enter your full name</span>
-       </div>
-       <div class="form-group"><label for="supportEmail">Email Address *</label> <input type="email" id="supportEmail" name="supportEmail" required> <span class="error-message" id="supportEmailError">Please enter a valid email address</span>
-       </div>
-       <div class="form-group"><label for="supportPhone">Phone Number *</label> <input type="tel" id="supportPhone" name="supportPhone" required> <span class="error-message" id="supportPhoneError">Please enter a valid phone number</span>
-       </div>
-       <div class="form-group"><label for="supportArea">Area / Ward *</label> <input type="text" id="supportArea" name="supportArea" required> <span class="error-message" id="supportAreaError">Please enter your area or ward</span>
-       </div><button type="submit" class="submit-button">Register Your Support</button>
+
+      <form
+        id="supportForm"
+        action="https://formspree.io/f/mjknnknd"
+        method="POST"
+      >
+        <div class="form-group">
+          <label for="supportName">Full Name *</label>
+          <input type="text" id="supportName" name="name" required>
+          <span class="error-message" id="supportNameError">
+            Please enter your full name
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="supportEmail">Email Address *</label>
+          <input type="email" id="supportEmail" name="email" required>
+          <span class="error-message" id="supportEmailError">
+            Please enter a valid email address
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="supportPhone">Phone Number *</label>
+          <input type="tel" id="supportPhone" name="phone" required>
+          <span class="error-message" id="supportPhoneError">
+            Please enter a valid phone number
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="supportArea">Area / Ward *</label>
+          <input type="text" id="supportArea" name="area" required>
+          <span class="error-message" id="supportAreaError">
+            Please enter your area or ward
+          </span>
+        </div>
+
+        <!-- Make reply button work -->
+        <input type="hidden" name="_replyto" value="%email%">
+
+        <!-- Email subject -->
+        <input type="hidden" name="_subject" value="New Support Registration">
+
+        <!-- Spam protection -->
+        <input type="text" name="_gotcha" style="display:none">
+
+        <button type="submit" class="submit-button">
+          Register Your Support
+        </button>
       </form>
-     </div>
     </div>
-   </section><!-- Contact Section -->
+  </div>
+</section>
    <section id="contact" class="fade-in">
     <div class="container">
      <h2 class="section-title">Contact Us</h2>
