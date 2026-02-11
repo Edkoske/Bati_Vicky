@@ -50,8 +50,24 @@
         }
 
         .loader-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
             color: var(--white);
+        }
+
+        .loader-logo-img {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 1.5rem;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeInScale 0.8s ease;
+            display: block;
         }
 
         .loader-logo {
@@ -59,22 +75,6 @@
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 2rem;
-            animation: fadeInScale 0.8s ease;
-        }
-        .loader-logo-img {
-            max-width: 150px;
-            height: auto;
-            margin-bottom: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            animation: fadeInScale 0.8s ease;
-        }
-        .loader-logo-img {
-            max-width: 150px;
-            height: auto;
-            margin-bottom: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             animation: fadeInScale 0.8s ease;
         }
 
