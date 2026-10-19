@@ -1,14 +1,11 @@
-        // Loading screen management
-        window.addEventListener('load', () => {
-            const loadingScreen = document.getElementById('loadingScreen');
-            const body = document.body;
-            
-            // Ensure minimum loading time for smooth experience (1.2 seconds)
-            setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-                body.classList.remove('loading');
-            }, 1200);
-        });
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const loadingScreen = document.getElementById('loadingScreen');
+
+        // Keep the branded intro brief and independent of below-the-fold assets.
+        window.setTimeout(() => {
+            document.documentElement.classList.remove('loading');
+            loadingScreen.setAttribute('aria-hidden', 'true');
+        }, prefersReducedMotion ? 100 : 850);
 
         // Default configuration for editable features
         const defaultConfig = {
@@ -25,13 +22,18 @@
         const navMenu = document.getElementById('navMenu');
 
         mobileToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
+            const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+            mobileToggle.setAttribute('aria-expanded', String(!isExpanded));
+            mobileToggle.setAttribute('aria-label', isExpanded ? 'Open navigation menu' : 'Close navigation menu');
+            navMenu.classList.toggle('active', !isExpanded);
         });
 
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                mobileToggle.setAttribute('aria-label', 'Open navigation menu');
             });
         });
 
@@ -43,40 +45,31 @@
             } else {
                 navbar.classList.remove('scrolled');
             }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offsetTop = target.offsetTop - 70;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        }, { passive: true });
 
         // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+        if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+            document.documentElement.classList.add('motion-ready');
+            const observer = new IntersectionObserver((entries, currentObserver) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        currentObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
             });
-        }, observerOptions);
 
-        document.querySelectorAll('.fade-in').forEach(element => {
-            observer.observe(element);
-        });
+            document.querySelectorAll('.fade-in').forEach(element => {
+                observer.observe(element);
+            });
+        } else {
+            document.querySelectorAll('.fade-in').forEach(element => {
+                element.classList.add('visible');
+            });
+        }
 
         // Support form validation and submission
         const supportForm = document.getElementById('supportForm');
@@ -238,8 +231,19 @@
             heroSlides[currentSlide].classList.add('active');
         }
 
-        // Change slide every 5 seconds
-        setInterval(nextSlide, 5000);
+        // Pause the carousel while the page is hidden or the visitor prefers less motion.
+        let slideTimer;
+        function updateHeroSlider() {
+            if (!prefersReducedMotion && !document.hidden && heroSlides.length > 1) {
+                if (!slideTimer) slideTimer = setInterval(nextSlide, 5000);
+            } else {
+                clearInterval(slideTimer);
+                slideTimer = undefined;
+            }
+        }
+
+        document.addEventListener('visibilitychange', updateHeroSlider);
+        updateHeroSlider();
 
         // Element SDK configuration
         async function onConfigChange(config) {
@@ -287,5 +291,3 @@
                 mapToEditPanelValues
             });
         }
-
- (function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9af335bf669b8a61',t:'MTc2NTk0MDg0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();
